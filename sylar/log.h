@@ -2,7 +2,7 @@
  * @Author: abin
  * @Date: 2024-04-12 05:56:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-04-12 08:12:06
+ * @LastEditTime: 2024-04-12 14:57:58
  * @FilePath: /web_server/sylar/log.h
  * @Description: 
  * 
@@ -36,6 +36,7 @@ private:
     std::string m_content;          
     uint32_t m_elapse = 0;          // 程序启动到现在的毫秒数
 };
+
 /* 日志级别 */
 class LogLevel 
 {
@@ -49,6 +50,7 @@ public:
         FATAL = 5
     };
 };
+
 /* 日志格式器 */
 class LogFormatter
 {
@@ -103,6 +105,7 @@ private:
     LogLevel::Level m_level;        // 日志级别
     std::list<LogAppender::ptr> m_appenders;         // Appender 集合列表
 };
+
 /* 输出到控制台的Appender */
 class StdouLogAppender : public  LogAppender
 {
@@ -112,6 +115,7 @@ public:
 private:
 
 };
+
 /* 定义输出到文件的Appender */
 class FileLogAppender : public LogAppender
 {
