@@ -2,7 +2,7 @@
  * @Author: abin
  * @Date: 2024-04-12 05:56:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-04-12 14:57:58
+ * @LastEditTime: 2024-04-12 17:19:41
  * @FilePath: /web_server/sylar/log.h
  * @Description: 
  * 
@@ -19,6 +19,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <vector>
 namespace sylar
 {
 
@@ -27,6 +28,15 @@ class LogEvent
 public:
     typedef std::shared_ptr<LogEvent> ptr;
     LogEvent();
+
+    const char* getFile() const { return m_file; }
+    int32_t getLine() const { return m_line;}
+    uint32_t getElapse() const { return m_elapse; }
+    uint32_t getThreadId() const { return m_threadId; }
+    uint64_t getFiberId() const { return m_fiberId; }
+    const std::string& getContent() const { return m_content; }
+    
+
 private:
     const char* m_file = nullptr;   // 文件名
     int32_t m_line = 0;             // 行号
@@ -43,12 +53,14 @@ class LogLevel
 public:
     enum Level
     {
+        UNKNOW = 0,
         DEBUG = 1,
         INFO  = 2,
         WARN  = 3,
         ERROR = 4,
         FATAL = 5
     };
+    static const char* ToString(LogLevel::Level level);
 };
 
 /* 日志格式器 */
@@ -56,9 +68,22 @@ class LogFormatter
 {
 public:
     typedef std::shared_ptr<LogFormatter> ptr;
-    std::string format(LogEvent::ptr event);
-private:
+    LogFormatter(const std::string& pattern);
+    //%t  %thread_id %m%n
+    std::string format(LogLevel::Level level,LogEvent::ptr event);
 
+public:
+    class FormatItem{
+    public:
+        typedef std::shared_ptr<FormatItem> ptr;
+        virtual ~FormatItem() {}
+        virtual void format(std::ostream& os,LogLevel::Level level,LogEvent::ptr event) = 0;
+    };
+    void init();
+private:
+    std::string m_pattern;
+    std::vector<FormatItem::ptr> m_items;
+    
 };
 /* 日志输出 */
 class LogAppender
@@ -70,15 +95,15 @@ public:
     /* 日志等级 纯函数 */
     virtual void log(LogLevel::Level,LogEvent::ptr event) = 0;
     
-    void setFormatter(LogFormatter val) { m_formatter = val;}
-    LogFormatter getFormatter() const { return m_formatter;  }
+    void setFormatter(LogFormatter::ptr val) { m_formatter = val;}
+    LogFormatter::ptr getFormatter() const { return m_formatter;  }
 
 protected:
     LogLevel::Level m_level;
 
     /* 自己修改了一下 */
 public:
-    LogFormatter m_formatter;
+    LogFormatter::ptr m_formatter;
 };
 
 /* 日志 */
