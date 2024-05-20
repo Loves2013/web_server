@@ -1,3 +1,0 @@
-/home/muduo/web_server/base/test/build/CMakeFiles/main.dir
-/home/muduo/web_server/base/test/build/CMakeFiles/edit_cache.dir
-/home/muduo/web_server/base/test/build/CMakeFiles/rebuild_cache.dir
