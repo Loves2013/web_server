@@ -2,7 +2,7 @@
  * @Author: abin
  * @Date: 2024-05-20 22:09:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-05-21 17:23:00
+ * @LastEditTime: 2024-05-22 07:16:02
  * @FilePath: /muduo/web_server/base/test/main.cpp
  * @Description: 
  * 
@@ -12,10 +12,9 @@
 #include <vector>
 #include "Mutex.h"
 #include "Thread.h"
-
-
-
+#include "functional"
 using namespace muduo;
+using namespace std;
 MutexLock _mutex;
 std::vector<int> _vec;
 const int Count = 10 * 10;
@@ -56,15 +55,13 @@ private:
     double x_;
 };
 int main() {
-  //  printf("pid = %d,tid = %d\n",getpid(),muduo::CurrentThread::tid());
+
     muduo::Thread t1(threadFunc,"threadFunc");
     t1.startThread_();
-    printf("t1.tid =%d\n",t1.tid());
 
     muduo::Thread t2(std::bind(threadFunc1,1024),
                 "threadFunc1");
     t2.startThread_();
-    printf("t2.tid = %d \n",t1.tid());
     t1.join_();
     t2.join_();
     return 0;
