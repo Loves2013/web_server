@@ -2,7 +2,7 @@
  * @Author: abin
  * @Date: 2024-05-20 21:38:22
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-05-20 22:39:10
+ * @LastEditTime: 2024-05-21 09:39:30
  * @FilePath: /muduo/web_server/base/test/application_thread.h
  * @Description: 
  * 
@@ -19,13 +19,5 @@ public:
         std::cout<<"~Application_Thread() ... \n";
     }
 
-    void run_() override {
-        int i = 0;
-        while(i <3){
-            std::cout<<"Run_ ... "<<i<<"\n";
-            i++;
-            sleep(2);
-        }
-
-    }
+ 
 };
