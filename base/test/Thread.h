@@ -14,8 +14,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string>
-#include "atomic.h"
 #include <functional>
+#include "Atomic.h"
 namespace muduo
 {
 class Thread {
