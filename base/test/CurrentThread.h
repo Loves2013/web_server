@@ -2,7 +2,7 @@
  * @Author: abin
  * @Date: 2024-05-21 00:55:14
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-05-21 14:59:48
+ * @LastEditTime: 2024-05-21 16:30:06
  * @FilePath: /muduo/web_server/base/test/CurrentThread.h
  * @Description: 
  * 
@@ -24,9 +24,18 @@ namespace CurrentThread
     extern __thread int t_tidStringLength;
     extern __thread const char* t_threadName;
 
-    void cacheTid();
 
-    pid_t gettid();
+    /* 用系统函数syscall() 来获取真实的tid */
+pid_t gettid() {
+    return static_cast<pid_t>(syscall(SYS_gettid));
+}
+
+void cacheTid() {
+    if(t_cachedTid == 0) {
+        t_cachedTid = gettid();
+        t_tidStringLength = snprintf(t_tidString,sizeof(t_tidString),"%5d",t_cachedTid);
+    }
+}
 
     inline int tid() {
         /* 如果t_cache的Tid == 0 说明没有缓存过 */

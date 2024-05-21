@@ -3,6 +3,6 @@ project(test CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(main main.cpp thread.cpp thread.h atomic.h)
+add_executable(main main.cpp Mutex.h thread.cpp thread.h atomic.h )
 
 target_link_libraries(main pthread)

@@ -2,7 +2,7 @@
  * @Author: abin
  * @Date: 2024-05-20 22:09:24
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-05-21 15:50:08
+ * @LastEditTime: 2024-05-21 17:23:00
  * @FilePath: /muduo/web_server/base/test/main.cpp
  * @Description: 
  * 
@@ -10,16 +10,35 @@
  */
 #include "thread.h"
 #include <assert.h>
-#include "CurrentThread.h"
+#include <vector>
+#include "Mutex.h"
+
+
 
 using namespace muduo;
+MutexLock _mutex;
+std::vector<int> _vec;
+const int Count = 10 * 10;
+
 void threadFunc() {
-    std::cout<<"================ func1() method 无参数 ================ \n";
+    for(int i = 0; i < Count; i++) {
+        _mutex.lock();
+        std::cout<<"================ threadFunc() method 无参数第: "<<i<<" ================ \n";
+        sleep(1);
+        _vec.push_back(i);
+        _mutex.unlock();
+    }
 }
 
 void threadFunc1(int x) {
    // printf("tid=%d\n ",muduo::CurrentThread::tid());
-    std::cout<<"int x:"<<x<<std::endl;
+     for(int i = 0; i < Count; i++) {
+        _mutex.lock();
+        std::cout<<"================threadFunc1() method int x: "<<x<<"==========="<<std::endl;
+        sleep(2);
+        _vec.push_back(i);
+        _mutex.unlock();
+     }
 }
 
 void threadFunc2(std::string y) {
@@ -29,7 +48,6 @@ void threadFunc2(std::string y) {
 class Foo {
 public:
     Foo(double x) :x_(x) {
-
     }
     void memberFunc(std::string& text) {
       //  printf("tid= %d, Foo::X_=%f text = %s \n",muduo::CurrentThread::tid(),x_,text.c_str());
@@ -39,21 +57,15 @@ private:
 };
 int main() {
   //  printf("pid = %d,tid = %d\n",getpid(),muduo::CurrentThread::tid());
-    muduo::Thread t1(threadFunc);
+    muduo::Thread t1(threadFunc,"threadFunc");
     t1.startThread_();
     printf("t1.tid =%d\n",t1.tid());
-    t1.join_();
 
     muduo::Thread t2(std::bind(threadFunc1,1024),
-                "thread for free function with argument ");
+                "threadFunc1");
     t2.startThread_();
     printf("t2.tid = %d \n",t1.tid());
+    t1.join_();
     t2.join_();
-
-    // Foo foo(1612.0);
-    // muduo::Thread t3(std::bind(&Foo::memberFunc,&foo),
-    //         "thread for member function Foo::memberFunc ");
-
-    sleep(2);
     return 0;
 }

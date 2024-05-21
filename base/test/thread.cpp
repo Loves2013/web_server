@@ -9,7 +9,6 @@
  * Copyright (c) 2024 by 17320066637@163.com, All Rights Reserved. 
  */
 #include "thread.h"
-#include "CurrentThread.h"
 
 namespace muduo
 {
