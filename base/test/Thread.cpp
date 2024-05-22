@@ -2,8 +2,8 @@
  * @Author: abin
  * @Date: 2024-05-20 21:37:45
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-05-21 15:43:16
- * @FilePath: /muduo/web_server/base/test/thread.cpp
+ * @LastEditTime: 2024-05-22 17:27:37
+ * @FilePath: /muduo/web_server/base/test/Thread.cpp
  * @Description: 
  * 
  * Copyright (c) 2024 by 17320066637@163.com, All Rights Reserved. 
@@ -59,6 +59,7 @@ void Thread::startThread_() {
        started_ = false;
        printf("create pthread failed .\n"); 
     }
+    started_ = true;
     printf("create pthread success .\n");
 }
 
