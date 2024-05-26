@@ -129,6 +129,30 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
+EventLoop.o: EventLoop.cpp.o
+.PHONY : EventLoop.o
+
+# target to build an object file
+EventLoop.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/EventLoop.cpp.o
+.PHONY : EventLoop.cpp.o
+
+EventLoop.i: EventLoop.cpp.i
+.PHONY : EventLoop.i
+
+# target to preprocess a source file
+EventLoop.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/EventLoop.cpp.i
+.PHONY : EventLoop.cpp.i
+
+EventLoop.s: EventLoop.cpp.s
+.PHONY : EventLoop.s
+
+# target to generate assembly for a file
+EventLoop.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/EventLoop.cpp.s
+.PHONY : EventLoop.cpp.s
+
 Thread.o: Thread.cpp.o
 .PHONY : Thread.o
 
@@ -210,6 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
+	@echo "... EventLoop.o"
+	@echo "... EventLoop.i"
+	@echo "... EventLoop.s"
 	@echo "... Thread.o"
 	@echo "... Thread.i"
 	@echo "... Thread.s"

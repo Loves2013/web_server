@@ -1,3 +1,13 @@
+/*
+ * @Author: abin
+ * @Date: 2024-05-26 09:28:16
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2024-05-26 11:20:15
+ * @FilePath: /muduo/web_server/base/test/CurrentThread.h
+ * @Description: 
+ * 
+ * Copyright (c) 2024 by 17320066637@163.com, All Rights Reserved. 
+ */
 #ifndef MUDUO_CURRENTTHREAD_H
 #define MUDUO_CURRENTTHREAD_H
 #include <stdint.h>
@@ -18,10 +28,10 @@ namespace muduo
 namespace CurrentThread
 {
   // internal
-  extern __thread int t_cachedTid;
-  extern __thread char t_tidString[32];
-  extern __thread int t_tidStringLength;
-  extern __thread const char* t_threadName;
+  inline __thread int t_cachedTid;
+  inline __thread char t_tidString[32];
+  inline __thread int t_tidStringLength;
+  inline __thread const char* t_threadName;
 
     inline pid_t gettid()
     {

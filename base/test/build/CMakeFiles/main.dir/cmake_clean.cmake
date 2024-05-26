@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/main.dir/EventLoop.cpp.o"
+  "CMakeFiles/main.dir/EventLoop.cpp.o.d"
   "CMakeFiles/main.dir/Thread.cpp.o"
   "CMakeFiles/main.dir/Thread.cpp.o.d"
   "CMakeFiles/main.dir/Timestamp.cpp.o"
